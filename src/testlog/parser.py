@@ -1,3 +1,8 @@
+import csv
+
+
+
+
 def is_out_of_spec(value, low, high):
     """Value 超出[low, high] 回傳True。"""
     #TODO1
@@ -14,7 +19,22 @@ def is_out_of_spec(value, low, high):
     #TODO4
     return False
 
-print(is_out_of_spec(3.3, 3.2, 3.4))   # 預期 False
-print(is_out_of_spec(3.5, 3.2, 3.4))   # 預期 True
-print(is_out_of_spec("", 3.2, 3.4))    # 預期 False
-print(is_out_of_spec(100, None, 3.4))  # 預期 True
+
+def read_log(path):
+    """讀取測試log,回傳(limits, rows)"""
+    low_row = None
+    high_row = None
+    rows = []
+    
+    with open(path, encoding="utf-8", newline="") as f:
+        for row in csv.DictReader(f):
+            #TODO B
+            if row["SN"] == "LowLimit":
+                low_row= row
+            elif row["SN"] == "HighLimit":
+                high_row = row
+            else:
+                rows.append(row)
+            #TODO C:
+        limits = {}
+        return limits , rows
